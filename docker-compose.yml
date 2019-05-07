@@ -1,0 +1,25 @@
+version: '3.3'
+
+networks:
+  monitor-net:
+    driver: bridge
+    
+services:
+
+  webapi:
+    build: backend_go/.  
+    container_name: bbb-wal-webapi
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - monitor-net
+          
+  front:
+    build: front_end/app/.
+    container_name: bbb-wal-front
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    networks:
+      - monitor-net
